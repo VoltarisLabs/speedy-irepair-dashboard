@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Loader2, Phone } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
@@ -38,11 +38,11 @@ export default function Login() {
 
       <div className="relative w-full max-w-sm">
         {/* Brand */}
-        <div className="flex items-center gap-3 mb-8 justify-center">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-speedy-accent to-speedy-accent2 flex items-center justify-center ring-1 ring-white/10">
-            <Phone className="w-5 h-5 text-white" />
+        <div className="flex flex-col items-center gap-3 mb-8">
+          <div className="w-20 h-20 rounded-2xl bg-white flex items-center justify-center ring-1 ring-white/10 overflow-hidden shadow-2xl">
+            <img src="/logo.png" alt="Speedy iRepair" className="w-full h-full object-contain p-1.5" />
           </div>
-          <div>
+          <div className="text-center">
             <div className="text-lg font-bold text-white tracking-tight">Speedy iRepair</div>
             <div className="text-[11px] text-zinc-500 font-medium">Dashboard</div>
           </div>

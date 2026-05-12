@@ -31,8 +31,8 @@ export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobile
         <div className={`flex items-center h-16 border-b border-white/[0.06] flex-shrink-0 ${compact ? 'justify-center' : 'justify-between px-5'}`}>
           {!compact ? (
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-speedy-accent to-speedy-accent2 flex items-center justify-center ring-1 ring-white/10">
-                <span className="text-[12px] font-bold text-white">SR</span>
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center ring-1 ring-white/10 overflow-hidden">
+                <img src="/logo.png" alt="Speedy iRepair" className="w-full h-full object-contain p-0.5" />
               </div>
               <div>
                 <div className="text-[14px] font-bold text-white tracking-tight">Speedy iRepair</div>
@@ -40,8 +40,8 @@ export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobile
               </div>
             </div>
           ) : (
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-speedy-accent to-speedy-accent2 flex items-center justify-center ring-1 ring-white/10">
-              <span className="text-[12px] font-bold text-white">SR</span>
+            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center ring-1 ring-white/10 overflow-hidden">
+              <img src="/logo.png" alt="Speedy iRepair" className="w-full h-full object-contain p-0.5" />
             </div>
           )}
           {isMobile && (
@@ -101,8 +101,8 @@ export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobile
         {/* User */}
         <div className={`border-t border-white/[0.06] ${compact ? 'px-2 py-3' : 'px-3 py-3'}`}>
           <div className={`flex items-center gap-3 ${compact ? 'justify-center' : ''}`}>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-speedy-accent/20 to-speedy-accent2/20 border border-white/10 flex items-center justify-center text-[11px] font-bold text-white">
-              SR
+            <div className="w-9 h-9 rounded-xl bg-white border border-white/10 flex items-center justify-center overflow-hidden">
+              <img src="/logo.png" alt="Speedy iRepair" className="w-full h-full object-contain p-0.5" />
             </div>
             {!compact && (
               <>
