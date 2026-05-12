@@ -11,7 +11,7 @@
     'https://n8n.srv1236458.hstgr.cloud/webhook/speedy-chat';
   const TOKEN_URL = window.SPEEDY_WIDGET_TOKEN_URL ||
     'https://n8n.srv1236458.hstgr.cloud/webhook/speedy-web-token';
-  const RETELL_SDK_URL = 'https://esm.sh/retell-client-js-sdk@2.0.7';
+  const RETELL_SDK_URL = 'https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/+esm';
 
   const ACCENT = '#0080FF';
   const ACCENT2 = '#4F1AD6';
