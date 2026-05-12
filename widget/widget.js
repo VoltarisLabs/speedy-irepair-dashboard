@@ -125,7 +125,7 @@
     </div>
 
     <div class="spd-body" id="spd-chat-body">
-      <div class="spd-msg jess">Hey — Jess from Speedy iRepair. What's going on with the phone?</div>
+      <div class="spd-msg jess">Hey, Jess from Speedy iRepair here. What's going on with the phone?</div>
     </div>
 
     <div class="spd-call" id="spd-call-view" style="display:none;">
