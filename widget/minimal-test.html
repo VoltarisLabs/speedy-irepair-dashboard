@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Retell SDK Minimal Test</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; }
+  pre { background: #f5f5f7; padding: 16px; border-radius: 8px; max-height: 400px; overflow-y: auto; font-size: 12px; }
+  button { padding: 12px 24px; font-size: 16px; background: #0080FF; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ok { color: #059669; }
+  .err { color: #dc2626; }
+  .info { color: #0080FF; }
+  #status { font-size: 14px; padding: 12px; background: #f5f5f7; border-radius: 8px; margin: 12px 0; }
+</style>
+</head>
+<body>
+
+<h1>Retell SDK Minimal Test</h1>
+<p>This page tests the Retell SDK directly with zero abstraction. If the call connects here, the widget should also work. If this fails, it's a Safari/WebRTC/network issue, not our code.</p>
+
+<button id="start">Start Test Call</button>
+<button id="stop" disabled>Stop</button>
+
+<div id="status">Not started</div>
+
+<h3>Event Log:</h3>
+<pre id="log"></pre>
+
+<script>
+const TOKEN_URL = 'https://n8n.srv1236458.hstgr.cloud/webhook/speedy-web-token';
+const $log = document.getElementById('log');
+const $status = document.getElementById('status');
+const $start = document.getElementById('start');
+const $stop = document.getElementById('stop');
+
+let client = null;
+
+function log(msg, cls) {
+  const t = new Date().toISOString().split('T')[1].slice(0, 12);
+  const line = document.createElement('div');
+  if (cls) line.className = cls;
+  line.textContent = `[${t}] ${msg}`;
+  $log.appendChild(line);
+  $log.scrollTop = $log.scrollHeight;
+  console.log(`[${t}] ${msg}`);
+}
+
+function setStatus(msg, cls) {
+  $status.textContent = msg;
+  $status.className = cls || '';
+}
+
+$start.addEventListener('click', async () => {
+  $log.innerHTML = '';
+  $start.disabled = true;
+  setStatus('Starting...', 'info');
+
+  // === Step 1: Mic permission ===
+  log('Step 1: Requesting mic...', 'info');
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    stream.getTracks().forEach(t => t.stop());
+    log('  ✓ Mic permission granted', 'ok');
+  } catch (e) {
+    log(`  ✗ Mic denied: ${e.name}: ${e.message}`, 'err');
+    setStatus('FAILED at mic permission', 'err');
+    $start.disabled = false;
+    return;
+  }
+
+  // === Step 2: Load SDK ===
+  log('Step 2: Loading Retell SDK from esm.sh...', 'info');
+  let RetellWebClient;
+  try {
+    const mod = await import('https://esm.sh/retell-client-js-sdk@2.0.7');
+    RetellWebClient = mod.RetellWebClient || (mod.default && mod.default.RetellWebClient);
+    if (!RetellWebClient) throw new Error('RetellWebClient export missing');
+    log(`  ✓ SDK loaded. Exports: ${Object.keys(mod).join(', ')}`, 'ok');
+  } catch (e) {
+    log(`  ✗ SDK load failed: ${e.message}`, 'err');
+    setStatus('FAILED at SDK load', 'err');
+    $start.disabled = false;
+    return;
+  }
+
+  // === Step 3: Fetch token ===
+  log('Step 3: Fetching access token from n8n...', 'info');
+  let accessToken;
+  try {
+    const t1 = Date.now();
+    const res = await fetch(TOKEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    accessToken = data.access_token;
+    if (!accessToken) throw new Error('No access_token in response');
+    log(`  ✓ Token received in ${Date.now() - t1}ms (call_id: ${data.call_id})`, 'ok');
+  } catch (e) {
+    log(`  ✗ Token fetch failed: ${e.message}`, 'err');
+    setStatus('FAILED at token fetch', 'err');
+    $start.disabled = false;
+    return;
+  }
+
+  // === Step 4: Create client + register ALL events ===
+  log('Step 4: Creating SDK client + registering all event listeners...', 'info');
+  client = new RetellWebClient();
+
+  // Spy on EVERY known event
+  const events = ['call_started', 'call_ready', 'call_ended', 'agent_start_talking', 'agent_stop_talking',
+                  'audio', 'update', 'metadata', 'node_transition', 'error'];
+  events.forEach(evt => {
+    client.on(evt, (...args) => {
+      const argSummary = args.length ? ` (${args.length} arg)` : '';
+      log(`  → SDK event: ${evt}${argSummary}`, evt === 'error' ? 'err' : 'ok');
+    });
+  });
+
+  log(`  ✓ Registered ${events.length} listeners`, 'ok');
+
+  // === Step 5: startCall ===
+  log('Step 5: Calling client.startCall(...)...', 'info');
+  setStatus('Calling startCall — waiting for events...', 'info');
+  $stop.disabled = false;
+
+  // Poll client.connected every 500ms for diagnostic
+  let pollCount = 0;
+  const poll = setInterval(() => {
+    pollCount++;
+    if (pollCount > 30) { clearInterval(poll); return; }
+    const connected = client && client.connected;
+    if (pollCount % 4 === 0) {
+      log(`  poll t=${pollCount * 0.5}s connected=${connected}`, 'info');
+    }
+    if (connected) {
+      clearInterval(poll);
+      log('  ✓ client.connected became true', 'ok');
+      setStatus('CONNECTED — Talk to Jess!', 'ok');
+    }
+  }, 500);
+
+  try {
+    const t1 = Date.now();
+    await client.startCall({ accessToken });
+    log(`  ✓ startCall promise resolved in ${Date.now() - t1}ms`, 'ok');
+
+    // Critical for Safari: explicit audio playback start
+    if (typeof client.startAudioPlayback === 'function') {
+      log('Step 6: Calling startAudioPlayback() (Safari requirement)...', 'info');
+      try {
+        await client.startAudioPlayback();
+        log('  ✓ startAudioPlayback resolved', 'ok');
+      } catch (e) {
+        log(`  ⚠ startAudioPlayback error (non-fatal): ${e.message}`, 'err');
+      }
+    } else {
+      log('  ⚠ startAudioPlayback not available on this SDK version', 'err');
+    }
+  } catch (e) {
+    log(`  ✗ startCall threw: ${e.message}`, 'err');
+    setStatus('FAILED at startCall', 'err');
+    clearInterval(poll);
+    $start.disabled = false;
+  }
+});
+
+$stop.addEventListener('click', () => {
+  if (client) {
+    log('User clicked Stop', 'info');
+    try { client.stopCall(); } catch (e) {}
+    client = null;
+  }
+  $start.disabled = false;
+  $stop.disabled = true;
+  setStatus('Stopped', 'info');
+});
+</script>
+
+</body>
+</html>

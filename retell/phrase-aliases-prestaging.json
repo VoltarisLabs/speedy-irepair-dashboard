@@ -1,0 +1,183 @@
+{
+  "_meta": {
+    "purpose": "Pre-staged phrase aliases for owner's real Square services. Scraped from his public Square Appointments page (square.site/appointments/book/H19XXYP72PBW5/speedy-irepair-akron-oh) on 2026-05-04. At Day 7+ production swap, get the matching square_service_variation_id for each service from owner's Square account, then INSERT each row into public.service_catalog with these phrase_aliases.",
+    "scraped_from": "https://square.site/appointments/book/H19XXYP72PBW5/speedy-irepair-akron-oh",
+    "scraped_on": "2026-05-04",
+    "merchant_id": "H19XXYP72PBW5",
+    "source_format": "Each row maps Square service name to natural-language phrases customers say. When Jess hears a phrase, the SDR-TOOLS workflow looks it up in service_catalog.phrase_aliases (GIN index) and gets the square_service_variation_id."
+  },
+  "services": [
+    {
+      "name": "iPhone 11 Screen Replacement",
+      "duration_minutes": 45,
+      "price_cents": 11999,
+      "phrase_aliases": ["iphone 11 screen", "iphone eleven screen", "11 screen", "eleven screen", "11 screen cracked", "11 screen broken", "broke my 11", "iphone 11 cracked screen", "11 display"]
+    },
+    {
+      "name": "iPhone 11 Pro Max Screen Replacement",
+      "duration_minutes": 45,
+      "price_cents": 19999,
+      "phrase_aliases": ["iphone 11 pro max screen", "11 pro max screen", "eleven pro max screen", "iphone 11 pro max cracked", "11 pro max cracked", "11 pro max broken"]
+    },
+    {
+      "name": "iPhone 11 Pro Screen Replacement",
+      "duration_minutes": 45,
+      "price_cents": 14999,
+      "phrase_aliases": ["iphone 11 pro screen", "11 pro screen", "eleven pro screen", "iphone 11 pro cracked", "11 pro cracked"]
+    },
+    {
+      "name": "iPhone SE 2020 Screen Replacement",
+      "duration_minutes": 30,
+      "price_cents": 11999,
+      "phrase_aliases": ["iphone se 2020 screen", "se 2020 screen", "se 2 screen", "iphone se second gen screen", "iphone se 2020 cracked"]
+    },
+    {
+      "name": "iPhone 12/12 Pro Screen Replacement",
+      "duration_minutes": 45,
+      "price_cents": 12000,
+      "phrase_aliases": ["iphone 12 screen", "iphone 12 pro screen", "12 screen", "12 pro screen", "twelve screen", "twelve pro screen", "12 cracked screen", "broke my 12", "12 pro cracked"]
+    },
+    {
+      "name": "iPhone 13 Screen Replacement",
+      "duration_minutes": 30,
+      "price_cents": 14999,
+      "phrase_aliases": ["iphone 13 screen", "13 screen", "thirteen screen", "13 cracked", "13 cracked screen", "13 broken", "broke my 13", "iphone 13 display"]
+    },
+    {
+      "name": "iPhone 14 Screen Replacement OLED",
+      "duration_minutes": 30,
+      "price_cents": 15000,
+      "phrase_aliases": ["iphone 14 screen", "14 screen", "fourteen screen", "14 cracked", "14 cracked screen", "broke my 14", "iphone 14 oled", "14 oled"]
+    },
+    {
+      "name": "iPhone XR LCD Screen Replacement",
+      "duration_minutes": 30,
+      "price_cents": 17999,
+      "phrase_aliases": ["iphone xr screen", "xr screen", "xr lcd", "iphone xr cracked", "xr cracked", "iphone 10r screen"]
+    },
+    {
+      "name": "iPhone X/XS LCD Screen Replacement",
+      "duration_minutes": 30,
+      "price_cents": 19999,
+      "phrase_aliases": ["iphone x screen", "iphone xs screen", "x screen", "xs screen", "iphone 10 screen", "iphone x cracked", "iphone xs cracked", "10 screen"]
+    },
+    {
+      "name": "iPhone XS Max Screen Replacement",
+      "duration_minutes": 30,
+      "price_cents": 29999,
+      "phrase_aliases": ["iphone xs max screen", "xs max screen", "iphone 10s max screen", "xs max cracked"]
+    },
+    {
+      "name": "iPhone 8 Plus Screen Repair",
+      "duration_minutes": 30,
+      "price_cents": 12999,
+      "phrase_aliases": ["iphone 8 plus screen", "8 plus screen", "eight plus screen", "iphone 8+ screen", "8 plus cracked", "8+ cracked"]
+    },
+    {
+      "name": "iPhone 8 Screen Repair",
+      "duration_minutes": 30,
+      "price_cents": 11999,
+      "phrase_aliases": ["iphone 8 screen", "8 screen", "eight screen", "iphone 8 cracked", "8 cracked"]
+    },
+    {
+      "name": "iPhone 7 Plus Screen Repair",
+      "duration_minutes": 30,
+      "price_cents": 12999,
+      "phrase_aliases": ["iphone 7 plus screen", "7 plus screen", "seven plus screen", "iphone 7+ screen", "7 plus cracked", "7+ cracked"]
+    },
+    {
+      "name": "iPhone 7 Screen Repair",
+      "duration_minutes": 30,
+      "price_cents": 11999,
+      "phrase_aliases": ["iphone 7 screen", "7 screen", "seven screen", "iphone 7 cracked", "7 cracked"]
+    },
+    {
+      "name": "iPhone SE Screen Replacement",
+      "duration_minutes": 25,
+      "price_cents": 7999,
+      "phrase_aliases": ["iphone se screen", "se screen", "first gen se screen", "iphone se 1st gen screen"]
+    },
+    {
+      "name": "iPhone Back Glass Replacement",
+      "duration_minutes": 120,
+      "price_cents": null,
+      "phrase_aliases": ["back glass", "back of the phone", "rear glass", "back is cracked", "back of my iphone", "broken back", "iphone back glass"]
+    },
+    {
+      "name": "Rear Camera Glass Replacement - iPhone Only",
+      "duration_minutes": 30,
+      "price_cents": 4999,
+      "phrase_aliases": ["camera glass", "rear camera glass", "back camera glass", "camera lens cracked", "camera cover broken"]
+    },
+    {
+      "name": "Rear Camera Replacement - iPhone Only",
+      "duration_minutes": 30,
+      "price_cents": 7500,
+      "phrase_aliases": ["rear camera", "back camera", "main camera not working", "rear camera broken", "back camera replacement"]
+    },
+    {
+      "name": "Front Camera Replacement - iPhone Only",
+      "duration_minutes": 30,
+      "price_cents": 4999,
+      "phrase_aliases": ["front camera", "selfie camera", "facetime camera", "front camera not working", "front facing camera"]
+    },
+    {
+      "name": "Battery Replacement - iPhone Only",
+      "duration_minutes": 25,
+      "price_cents": 12500,
+      "phrase_aliases": ["battery", "battery replacement", "iphone battery", "battery dying", "battery dies fast", "battery health", "won't hold charge", "won't charge", "phone dies fast", "battery is bad", "old battery"]
+    },
+    {
+      "name": "Housing Swap - iPhone 11",
+      "duration_minutes": 30,
+      "price_cents": 15000,
+      "phrase_aliases": ["housing swap", "iphone 11 housing", "frame replacement", "body of the phone", "case of the phone replacement"]
+    },
+    {
+      "name": "Troubleshooting (20 min)",
+      "duration_minutes": 20,
+      "price_cents": 2999,
+      "phrase_aliases": ["diagnostic", "diagnose", "troubleshoot", "won't turn on", "not working", "something's wrong", "something is wrong", "not sure what's broken", "phone is acting weird", "phone is glitching", "check the phone"]
+    },
+    {
+      "name": "Troubleshooting (30 min)",
+      "duration_minutes": 30,
+      "price_cents": 5000,
+      "phrase_aliases": ["full diagnostic", "deep diagnostic", "longer troubleshoot", "thorough check"]
+    }
+  ],
+  "_excluded": {
+    "comment": "These items are on the public Square page but are NOT bookable repair services — exclude from phase 1 phrase mapping. They're mostly point-of-sale / accessory / mobile plan items.",
+    "items": [
+      "Activation Fee",
+      "Travel Fee",
+      "Overnight Shipping",
+      "Cube Tempered Glass",
+      "iPhone 14 Pro Otterbox",
+      "14 Pro Max Otterbox",
+      "iPhone Charging Cable",
+      "Ultra Mobile Unlimited Plan $50",
+      "Ultra Mobile $30 Phone Plan 10GB",
+      "Ultra Mobile $15 Phone Plan",
+      "AT&T Prepaid $50 Unlimited Plan",
+      "AT&T $35 Plan",
+      "T-Mobile $40 10GB Plan",
+      "Grinder - Smoke Shop"
+    ]
+  },
+  "_team_members_pending": {
+    "comment": "Owner's real Square Appointments page lists these staff. At Day 7+ we get the team_member_id for each from his prod Square account.",
+    "names": ["Jason", "Jatice Shaw"]
+  },
+  "_business_hours": {
+    "monday": "12:00 PM - 6:00 PM",
+    "tuesday": "12:00 PM - 6:00 PM",
+    "wednesday": "12:00 PM - 6:00 PM",
+    "thursday": "12:00 PM - 6:00 PM",
+    "friday": "12:00 PM - 6:00 PM",
+    "saturday": "12:00 PM - 6:00 PM",
+    "sunday": "Closed",
+    "_source": "Owner's public Square Appointments page",
+    "_note": "Apply these to tenants.business_hours JSONB column at Day 7+ if owner doesn't override."
+  }
+}
